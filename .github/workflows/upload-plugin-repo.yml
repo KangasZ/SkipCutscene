@@ -6,9 +6,9 @@ on:
       - '*'
 
 env:
-  SOLUTION_NAME: RadarPlugin
-  INTERNAL_NAME: RadarPlugin
-  RELEASE_DIR: ./RadarPlugin/bin/x64/Release/RadarPlugin
+  SOLUTION_NAME: SkipCutscene
+  INTERNAL_NAME: SkipCutscene
+  RELEASE_DIR: ./RadarPlugin/bin/Release/SkipCutscene
   PERSONAL_PLUGIN_REPO: KangasZ/DalamudPluginRepository
   BRANCH: main
 

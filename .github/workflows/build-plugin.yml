@@ -1,4 +1,4 @@
-name: Build RadarPlugin
+name: Build SkipCutscene
 on:
   push:
     branches: 'main'
@@ -41,4 +41,4 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2.2.1
         with:
-          path: ./RadarPlugin/bin/x64/Release/*
+          path: ./RadarPlugin/bin/Release/*
