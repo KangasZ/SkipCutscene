@@ -36,7 +36,7 @@ jobs:
           Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
 
       - name: Build
-        run: msbuild RadarPlugin.sln /p:Configuration=Release
+        run: msbuild SkipCutscene.sln /p:Configuration=Release
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2.2.1
