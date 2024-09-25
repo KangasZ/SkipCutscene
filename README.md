@@ -2,6 +2,8 @@
 ## Description
 This plugin is the existing SkipCutscene plugin by existing creators. However, certain things have changed including the `/sc` command is simpler and it's probably updated quicker on release of a new patch.
 
+The sole purpose of the plugin is to skip the forced msq cutscenes in the three msq dungeons at level 50.
+
 ## Installation
 To use the plugin, please install the custom repository with the following link:
 
