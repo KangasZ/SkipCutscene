@@ -12,6 +12,7 @@ namespace SkipCutscene;
 public class SkipCutscene : IDalamudPlugin
 {
     private readonly Config _config;
+    private readonly uint[] _msqTerritoryTypeIds = [1043,1044,1048];
 
     private readonly decimal _base = uint.MaxValue;
 
@@ -36,8 +37,6 @@ public class SkipCutscene : IDalamudPlugin
         if (Address.Offset1 != IntPtr.Zero && Address.Offset2 != IntPtr.Zero)
         {
             PluginLog.Information("Cutscene Offset Found.");
-            if (_config.IsEnabled)
-                SetEnabled(true);
         }
         else
         {
@@ -51,10 +50,12 @@ public class SkipCutscene : IDalamudPlugin
         {
             HelpMessage = "/sc: skip cutscene enable/disable."
         });
+        ClientState.TerritoryChanged += OnTerritoryChanged;
     }
 
     public void Dispose()
     {
+        ClientState.TerritoryChanged -= OnTerritoryChanged;
         SetEnabled(false);
         GC.SuppressFinalize(this);
     }
@@ -66,6 +67,8 @@ public class SkipCutscene : IDalamudPlugin
     [PluginService] public ISigScanner SigScanner { get; private set; }
 
     [PluginService] public ICommandManager CommandManager { get; private set; }
+
+    [PluginService] public IClientState ClientState { get; private set; }
 
     [PluginService] public IChatGui ChatGui { get; private set; }
 
@@ -86,12 +89,19 @@ public class SkipCutscene : IDalamudPlugin
         }
     }
 
+    private void OnTerritoryChanged(uint territoryType)
+    {
+        if (_msqTerritoryTypeIds.Contains(territoryType) && _config.IsEnabled)
+            SetEnabled(true);
+        else
+            SetEnabled(false);
+    }
+
     private void OnCommand(string command, string arguments)
     {
         if (command.ToLower() != "/sc") return;
         ChatGui.Print(_config.IsEnabled ? "Skip Cutscene: Disabled" : "Skip Cutscene: Enabled");
         _config.IsEnabled = !_config.IsEnabled;
-        SetEnabled(_config.IsEnabled);
         Interface.SavePluginConfig(_config);
     }
 }
